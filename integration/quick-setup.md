@@ -33,7 +33,7 @@ yarn add fluid-player@^3.0.0
 
 ### Using the Fluid Player module and importing CSS
 
-To import Fluid player JavaScript module, place this code wherever you want Fluid Player to be accessible in code.
+To import the Fluid Player JavaScript module, place this code wherever you want Fluid Player to be accessible in your code.
 
 #### JavaScript
 
@@ -43,7 +43,7 @@ import fluidPlayer from 'fluid-player';
 
 #### CSS
 
-Depending on what kind of bundling mechanism used you will need to import CSS from NPM package to have player instances styled properly.
+Depending on what kind of bundling mechanism used you will need to import CSS from the NPM package to have player instances styled properly.
 
 Refer to the documentation of your bundler to see how to add CSS to your stylesheets.
 
