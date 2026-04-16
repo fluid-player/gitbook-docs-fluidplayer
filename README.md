@@ -4,7 +4,7 @@ Fluid Player is a free HTML5 video player. It is lightweight, easy to integrate 
 
 ### Features
 
-* Supports the VAST standard:
+* Supports the VAST standard
   * Multiple VAST tags (pre-roll, mid-roll, post-roll)
   * Linear ads (video)
   * Non linear VAST tags (banner images (gif/jpg/png))
