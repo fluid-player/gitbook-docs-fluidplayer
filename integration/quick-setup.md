@@ -33,7 +33,7 @@ yarn add fluid-player@^3.0.0
 
 ### Using the Fluid Player module and importing CSS
 
-To import the Fluid Player JavaScript module, place this code wherever you want Fluid Player to be accessible in your code.
+To import the Fluid Player JavaScript module, place this code wherever you want Fluid Player to be accessible in your code!
 
 #### JavaScript
 
