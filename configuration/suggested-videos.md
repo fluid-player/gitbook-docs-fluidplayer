@@ -81,4 +81,3 @@ Fluid Player expects thumbnails to have a **16x9** aspect ratio. Thumbnails in o
 
 ![](<../.gitbook/assets/aspect ratio.png>)
 
-_Last updated on 6/11/2024_
