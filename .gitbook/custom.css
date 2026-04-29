@@ -1,6 +1,20 @@
-/* Hide "Powered by GitBook" footer */
-.gitbook-powered-by,
-[data-testid="powered-by-gitbook"],
-a[href*="gitbook.com?utm"] {
+/* Hide "Powered by GitBook" */
+.gitbook-powered-by {
+  display: none !important;
+}
+
+[data-testid="powered-by-gitbook"] {
+  display: none !important;
+}
+
+a[href*="gitbook.com"][href*="utm"] {
+  display: none !important;
+}
+
+.powered-by-gitbook {
+  display: none !important;
+}
+
+[class*="poweredBy"] {
   display: none !important;
 }
