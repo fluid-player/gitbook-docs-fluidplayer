@@ -1,4 +1,6 @@
 /* Hide "Powered by GitBook" footer */
-html.depth-subtle .depth-subtle\:shadow-none {
+.gitbook-powered-by,
+[data-testid="powered-by-gitbook"],
+a[href*="gitbook.com?utm"] {
   display: none !important;
 }
