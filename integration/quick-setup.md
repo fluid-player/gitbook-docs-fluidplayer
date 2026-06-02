@@ -1,146 +1,186 @@
 # Quick setup
 
-### Initializer syntax
+This page walks you through adding Fluid Player to your website. There are two ways to do it:
 
-```javascript
-var player = fluidPlayer(target [, options]);
-```
+* **The CDN approach** - paste a `<script>` tag and you're done. **Best for most websites**, no installation needed.
+* **The NPM approach** - install the package via NPM. **For developers using a build tool like Webpack or Vite.**
 
-Fluid Player initializer accepts two arguments:
+**Pick whichever matches your setup. If you're not sure, the CDN approach is the right choice.**
 
-* mandatory `target`. Can be a string HTML id of `HTMLVideoElement` or object reference to `HTMLVideoElement`.
-* `options` - optional, configuration object as documented in the configuration section of the documentation.
+> ℹ️ **Running WordPress?** You don't need to do any of this - **install the** [**Fluid Player WordPress plugin**](wordpress.md) **instead.**
 
-**IMPORTANT:** when referencing `HTMLVideoElement` by object reference, Fluid Player will mutate the element and assign a unique `id` to `HTMLVideoElement` unless the `id` is already set before initializer is invoked.
+***
 
-### Integration using NPM
+### **Option 1: Use the CDN (recommended)**
 
-You can add Fluid Player to your NPM project using following commands. Execute them in the root of your software project (where `package.json` can be found).
+A CDN is a service that hosts the Fluid Player files for you, so you don't have to download or install anything. You just link to them from your page.
 
-{% tabs %}
-{% tab title="Using NPM CLI" %}
-```shell
-npm install fluid-player@^3.0.0
-```
-{% endtab %}
+#### **Step 1: Add a video to your page**
 
-{% tab title="Using Yarn" %}
-```shell
-yarn add fluid-player@^3.0.0
-```
-{% endtab %}
-{% endtabs %}
-
-### Using the Fluid Player module and importing CSS
-
-To import the Fluid Player JavaScript module, place this code wherever you want Fluid Player to be accessible in your code!
-
-#### JavaScript
-
-```javascript
-import fluidPlayer from 'fluid-player';
-```
-
-#### CSS
-
-Depending on what kind of bundling mechanism used you will need to import CSS from the NPM package to have player instances styled properly.
-
-Refer to the documentation of your bundler to see how to add CSS to your stylesheets.
-
-An example how the import might look like for Webpack projects using `~` as `node_modules` import prefix.
-
-```css
-@import "~fluid-player/src/css/fluidplayer.css";
-```
-
-### Integration using CDN
-
-The Fluid Player provides a CDN build available for direct linking from [https://cdn.fluidplayer.com](https://cdn.fluidplayer.com/).
-
-**IMPORTANT:** As of v3.0.0, CDN version of Fluid Player ships with embedded CSS. Separate tag to include CSS is no longer required.
-
-Automatically use the most recent version (recommended):
+If you don't already have one, add a `<video>` tag where you want the player to appear:
 
 ```html
-<script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+<video id="example-player">
+    <source src="video.mp4" type="video/mp4" />
+</video>
 ```
 
-Or specify the version:
+The `id` attribute is what tells Fluid Player which video to enhance - make sure it's there.
+
+#### **Step 2: Load Fluid Player and start it**
+
+Just before the closing `</body>` tag of your page, add the Fluid Player script and a one-line initializer. Your finished page should look like this:
+
+```html
+<!-- The video, somewhere in your page -->
+<video id="example-player">
+    <source src="video.mp4" type="video/mp4" />
+</video>
+
+<!-- Just before </body> -->
+<script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+<script>
+    var player = fluidPlayer('example-player');
+</script>
+```
+
+That's it. Refresh your page - you should see the Fluid Player skin replace the browser's default video controls.
+
+> ✅ **As of v3.0.0**, the CDN build includes the CSS automatically. You don't need a separate `<link>` tag for stylesheets.
+
+#### **Pinning to a specific version**
+
+The URL above (`/v3/current/`) always serves the latest v3 release - recommended for most cases. If you'd rather lock to a specific version so it never changes underneath you, use:
 
 ```html
 <script src="https://cdn.fluidplayer.com/3.0.0/fluidplayer.min.js"></script>
 ```
 
-#### CDN integration example
+***
 
-```html
-<!-- Define a video with sources to attach Fluid Player to -->
-<video id="example-player">
-    <source src="video.mp4" type="video/mp4"/>
-</video>
+### **Option 2: Install via NPM**
 
-<!-- Place before </body> tag -->
-<script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
-<script>
-    // fluidPlayer method is global when CDN distribution is used.
-    var player = fluidPlayer('example-player');
-</script>
+Use this approach if you're building a JavaScript application with a bundler like Webpack, Vite, or Rollup.
+
+#### **Install the package**
+
+Run one of these in your project root (where `package.json` lives):
+
+**Using npm:**
+
+```bash
+npm install fluid-player@^3.0.0
 ```
 
-### Quality Switching
+**Using yarn:**
 
-Multiple sources can be added as shown below. The title will be displayed to the user when switching sources, and should be set to the video quality as can be seen below ('1080p', '720p' etc).
+```bash
+yarn add fluid-player@^3.0.0
+```
+
+#### Import the JavaScript
+
+Wherever you want to use Fluid Player in your code:
+
+```javascript
+import fluidPlayer from 'fluid-player';
+```
+
+#### Import the CSS
+
+The NPM build does not bundle CSS — you need to import it separately. How you do that depends on your bundler. For a Webpack project using `~` as the `node_modules` import prefix:
+
+```css
+@import "~fluid-player/src/css/fluidplayer.css";
+```
+
+Refer to your bundler's documentation if you're using a different tool.
+
+***
+
+### Adding multiple quality options
+
+If you have your video in different qualities (1080p, 720p, etc.), you can let viewers pick. Add multiple `<source>` tags — Fluid Player will show a quality selector in the player controls.
 
 ```html
-<video id='my-video' controls style="width: 640px; height: 360px;">
-    <source src='vid_1080p.mp4' title='1080p' type='video/mp4' />
-    <source src='vid_720p.mp4' title='720p' type='video/mp4' />
-    <source src='vid_480p.mp4' title='480p' type='video/mp4' />
+<video id="my-video" controls style="width: 640px; height: 360px;">
+    <source src="vid_1080p.mp4" title="1080p" type="video/mp4" />
+    <source src="vid_720p.mp4" title="720p" type="video/mp4" />
+    <source src="vid_480p.mp4" title="480p" type="video/mp4" />
 </video>
 ```
 
-![](../.gitbook/assets/qualitySwitch.png)
+The `title` attribute is what shows up in the quality menu.
 
-### Define Source as HD
+#### Marking a source as HD
 
-The sources set for [quality switching](quick-setup.md#quality-switching) can be defined as HD by adding a **data-fluid-hd** attribute to the tag. The colour of this text will match the [primary color](../configuration/layout.md#primarycolor). If you wish to override this colour you can do so using custom CSS on your own page. The class responsible for the colour is **fp\_hd\_source**. An example of overriding this colour is shown below.
+To highlight high-definition options visually, add `data-fluid-hd` to the `<source>` tag. The HD label uses your player's primary color by default.
+
+```html
+<video id="my-video" controls style="width: 640px; height: 360px;">
+    <source data-fluid-hd src="vid_1080p.mp4" title="1080p" type="video/mp4" />
+    <source data-fluid-hd src="vid_720p.mp4" title="720p" type="video/mp4" />
+    <source src="vid_480p.mp4" title="480p" type="video/mp4" />
+</video>
+```
+
+If you'd rather use a different color for the HD label, override it in your own CSS - the relevant class is `fp_hd_source`:
 
 ```css
 .fp_hd_source { color: yellow !important; }
 ```
 
-An example of how the HD is set in the sources is show below.
+***
+
+### Customizing the player
+
+Fluid Player accepts a configuration object as a second argument. This is where you set up appearance, ad behavior, and almost everything else.
 
 ```html
-<video id='my-video' controls style="width: 640px; height: 360px;">
-    <source data-fluid-hd src='vid_1080p.mp4' title='1080p' type='video/mp4' />
-    <source data-fluid-hd src='vid_720p.mp4' title='720p' type='video/mp4' />
-    <source src='vid_480p.mp4' title='480p' type='video/mp4' />
-</video>
-```
-
-![](../.gitbook/assets/hdSource.png)
-
-### Setting additional options
-
-Fluid Player can be customized by setting some optional parameters. The full list of parameters can be found under [Configuration](../configuration/layout.md)
-
-```html
-<video id='my-video' controls style="width: 640px; height: 360px;">
-    <source src='vid.mp4' type='video/mp4' />
+<video id="my-video" controls style="width: 640px; height: 360px;">
+    <source src="vid.mp4" type="video/mp4" />
 </video>
 
 <script type="text/javascript">
 var player = fluidPlayer(
-   'my-video',
+    'my-video',
     {
         layoutControls: {
             // Parameters to customise the look and feel of the player
         },
         vastOptions: {
-            // Parameters to customise how the ads are displayed & behave
+            // Parameters to customise how the ads are displayed and behave
         }
     }
 );
 </script>
 ```
+
+For the full list of options, see the [**Configuration reference**](https://app.gitbook.com/s/8rGD7jsniiB2SIkmyD9Z/configuration).
+
+***
+
+### Reference: the initializer
+
+```javascript
+var player = fluidPlayer(target [, options]);
+```
+
+**`target`** _(required)_ - tells Fluid Player which video to attach to. You can pass either:
+
+* The `id` of your `<video>` tag as a string, e.g. `'my-video'`, or
+* The video element directly, e.g. `document.getElementById('my-video')`
+
+**`options`** _(optional)_ - a configuration object. See [**Configuration**](https://app.gitbook.com/s/8rGD7jsniiB2SIkmyD9Z/configuration) for the full list.
+
+> ⚠️ **Heads up:** If you pass the video element directly and it doesn't already have an `id` attribute, Fluid Player will add one automatically. If your code relies on the element not having an id, set one yourself before calling `fluidPlayer()`.
+
+***
+
+### Where next?
+
+> 💡 **Set up ads** → [**Advertisements**](../configuration/advertisements.md)**.**
+>
+> 🎨 **Customize the look** → [**Layout configuration**](../configuration/layout.md)**.**
+>
+> 📝 **Add subtitles** → [**Subtitles**](../configuration/subtitles.md)**.**
